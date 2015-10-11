@@ -9,6 +9,9 @@
   (:export #:proper-list
            #:circular-list
            #:proper-sequence)
+  (:export #:ensure-sequence-type
+           #:ensure-sequence-type*
+           #:ensure-sequence-type+)
   (:export #:sequence-of
            #:sequence-of*
            #:sequence-of+)

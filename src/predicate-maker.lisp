@@ -32,3 +32,12 @@
       (setf (symbol-function name)
             (compile nil (make-sequence-predicate-lambda type length-type))))
     name))
+
+(defmacro ensure-sequence-type (&optional (type '*) (length '*))
+  `(make-sequence-of-predicate ',type ',length))
+
+(defmacro ensure-sequence-type* (&optional (type '*))
+  `(make-sequence-of-predicate ',type '(integer 0 *)))
+
+(defmacro ensure-sequence-type+ (&optional (type '*))
+  `(make-sequence-of-predicate ',type '(integer 1 *)))
