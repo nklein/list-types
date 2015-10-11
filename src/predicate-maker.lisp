@@ -15,9 +15,16 @@
                   (every #'validp list))))))
 
 (defun make-sequence-of-predicate (type length)
-  (let* ((length-type (if (integerp length)
-                          `(integer ,length ,length)
-                          length))
+  (let* ((type (if (eql type '*)
+                   t
+                   type))
+         (length-type (cond
+                        ((integerp length)
+                         `(integer ,length ,length))
+                        ((eql length '*)
+                         t)
+                        (t
+                         length)))
          (name (intern (format nil "SEQUENCE-OF-~S-WITH-LENGTH-~S-P"
                                type length-type)
                        (string '#:list-types/predicate-package))))
