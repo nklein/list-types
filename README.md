@@ -62,10 +62,3 @@ So, your code will look like one of the following:
     (defun foo (bar)
       (check-type bar (list-of+ integer))
       ...)
-
-    ;;; or...
-
-    (defun foo (bar)
-      (ensure-sequence-type+ integer)
-      (check-type bar (list-of+ integer))
-      ...)

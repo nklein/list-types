@@ -3,7 +3,7 @@
 (asdf:defsystem #:list-types
   :description "LIST-TYPES is various DEFTYPEs useful for dealing with lists."
   :author "Patrick Stein <pat@nklein.com>"
-  :version "0.2.20151011"
+  :version "0.2.20151029"
   :license "UNLICENSE"
   :depends-on (#:alexandria)
   :in-order-to ((asdf:test-op (asdf:load-op :list-types-tests)))
@@ -23,9 +23,9 @@
 (asdf:defsystem #:list-types-tests
   :description "Tests for the LIST-TYPES package."
   :author "Patrick Stein <pat@nklein.com>"
-  :version "0.2.20151011"
+  :version "0.2.20151029"
   :license "UNLICENSE"
-  :depends-on (#:list-types #:nst)
+  :depends-on ((:version #:list-types "0.2.20151029") #:nst)
   :components
   ((:module "test"
     :components ((:file "package")
