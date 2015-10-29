@@ -14,24 +14,22 @@ expansions terminate.  As such, one has to hop through various hoops
 to use a `SATISFIES` clause in a `DEFTYPE` to do that.  This package
 wraps that technique and defines the types:
 
-    (sequence-of &optional (type '*) (length-type '*))
+    (sequence-of &optional (type '*) (min-elements '*) (max-elements '*)
     (sequence-of* &optional (type '*))
     (sequence-of+ &optional (type '*))
 
-    (list-of &optional (type '*) (length-type '*))
+    (list-of &optional (type '*) (min-elements '*) (max-elements '*))
     (list-of* &optional (type '*))
     (list-of+ &optional (type '*))
 
 Additionally, this package also exports the `ALEXANDRIA` types for
 `PROPER-LIST` and `CIRCULAR-LIST`.
 
-The `LENGTH-TYPE` can be either a non-negative integer or a
-specification of an integer type.  With the type-names which end with
-asterisk (`*`), the `LENGTH-TYPE` is taken to be `(INTEGER 0 *)`.
-With the type-names which end with plus (`+`), the `LENGTH-TYPE` is
-taken to be `(INTEGER 1 *)`.
+The `MIN-ELEMENTS` and `MAX-ELEMENTS` can be either a non-negative
+integer or the symbol `*`.
 
-There is no attempt to ensure that a specified `LENGTH-TYPE` is valid.
+There is no attempt to ensure that a specified `MIN-ELEMENTS` is less
+than `MAX-ELEMENTS`.
 
 Note: there is currently no support for `CIRCULAR-LIST-OF`.
 
@@ -52,7 +50,9 @@ compiled `check-type` into a clean image.
 
 The ugly workaround for this is to use one of the macros before the check-type:
 
-    (ensure-sequence-type &optional (type '*) (length-type '*))
+    (ensure-sequence-type &optional (type '*)
+                                    (min-elements '*)
+                                    (max-elements '*))
     (ensure-sequence-type* &optional (type '*))
     (ensure-sequence-type+ &optional (type '*))
 
@@ -60,5 +60,12 @@ So, your code will look like one of the following:
 
     (ensure-sequence-type+ integer)
     (defun foo (bar)
+      (check-type bar (list-of+ integer))
+      ...)
+
+    ;;; Or
+
+    (defun foo (bar)
+      (ensure-sequence-type+ integer)
       (check-type bar (list-of+ integer))
       ...)

@@ -2,12 +2,14 @@
 
 (in-package #:list-types)
 
-(deftype list-of (&optional (type '*) (length '*))
+(deftype list-of (&optional (type '*)
+                            (min-elements '*)
+                            (max-elements '*))
   `(and proper-list
-        (sequence-of ,type ,length)))
+        (sequence-of ,type ,min-elements ,max-elements)))
 
 (deftype list-of* (&optional (type '*))
-  `(list-of ,type (integer 0 *)))
+  `(list-of ,type 0 *))
 
 (deftype list-of+ (&optional (type '*))
-  `(list-of ,type (integer 1 *)))
+  `(list-of ,type 1 *))
